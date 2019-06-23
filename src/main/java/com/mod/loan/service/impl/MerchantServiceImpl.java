@@ -97,7 +97,7 @@ public class MerchantServiceImpl implements MerchantService {
 
     private Merchant hitMerchant() {
 
-        List<Merchant> list = bizMerchantService.selectAll();
+        List<Merchant> list = bizMerchantService.queryNormalAll();
         if (CollectionUtils.isEmpty(list)) return null;
 
         Map<String, Integer> map = new HashMap<>();
