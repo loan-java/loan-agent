@@ -64,7 +64,6 @@ public class RongZeRequestController {
                 log.warn(logPre + "method: " + method + ", 解密后的数据：" + param.toJSONString());
             }
 
-
             JSONObject bizData = JSONObject.parseObject(param.getString("biz_data"));
 
             String orderNo = bizData.getString("order_no"); //默认的orderNo获取方式

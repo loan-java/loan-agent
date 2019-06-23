@@ -9,7 +9,7 @@ CREATE TABLE `tb_user` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_mobile_s` (`mobile_no`,`source`),
   UNIQUE KEY `uk_md5` (`mobile_id_md5`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 CREATE TABLE `tb_merchant` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -22,7 +22,7 @@ CREATE TABLE `tb_merchant` (
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_no` (`merchant_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='商户信息';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='商户信息';
 
 CREATE TABLE `tb_order_user` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -32,7 +32,7 @@ CREATE TABLE `tb_order_user` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_oid_s` (`order_no`,`source`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='流量端订单号跟用户关系';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin COMMENT='流量端订单号跟用户关系';
 
 CREATE TABLE `tb_user_merchant` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -42,4 +42,4 @@ CREATE TABLE `tb_user_merchant` (
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_uid_merchant` (`uid`,`merchant_no`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC COMMENT='用户跟商户关系';
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin ROW_FORMAT=DYNAMIC COMMENT='用户跟商户关系';
