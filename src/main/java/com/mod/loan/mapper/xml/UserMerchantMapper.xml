@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mod.loan.mapper.UserMerchantMapper">
+    <resultMap id="BaseResultMap" type="com.mod.loan.model.UserMerchant">
+        <result column="id" jdbcType="BIGINT" property="id"/>
+        <result column="uid" jdbcType="BIGINT" property="uid"/>
+        <result column="merchant_no" jdbcType="VARCHAR" property="merchantNo"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <select id="selectByUid" parameterType="long" resultMap="BaseResultMap">
+        select * from tb_user_merchant where uid=#{uid} order by id desc limit 1
+    </select>
+
+</mapper>

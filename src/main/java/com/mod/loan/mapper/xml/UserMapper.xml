@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mod.loan.mapper.UserMapper">
+    <resultMap id="BaseResultMap" type="com.mod.loan.model.User">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="mobile_no" jdbcType="VARCHAR" property="mobileNo"/>
+        <result column="mobile_id_md5" jdbcType="VARCHAR" property="mobileIdMd5"/>
+        <result column="source" jdbcType="INTEGER" property="source"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="updateTime"/>
+
+    </resultMap>
+
+    <insert id="insertGetId" useGeneratedKeys="true" keyProperty="id" parameterType="com.mod.loan.model.User">
+        insert into tb_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="userName != null">
+                user_name,
+            </if>
+            <if test="mobileNo != null">
+                mobile_no,
+            </if>
+            <if test="mobileIdMd5 != null and mobileIdMd5 != ''">
+                mobile_id_md5,
+            </if>
+            <if test="source != null">
+                source,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="userName != null">
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="mobileNo != null">
+                #{mobileNo,jdbcType=VARCHAR},
+            </if>
+            <if test="mobileIdMd5 != null">
+                #{mobileIdMd5,jdbcType=VARCHAR},
+            </if>
+            <if test="source != null">
+                #{source,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+
+        <selectKey resultType="long" keyProperty="id" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+    </insert>
+
+    <select id="selectByMd5" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select * from tb_user where mobile_id_md5=#{str,jdbcType=VARCHAR}
+    </select>
+
+</mapper>
