@@ -28,7 +28,7 @@ CREATE TABLE `tb_order_user` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `order_no` varchar(64) COLLATE utf8mb4_bin DEFAULT NULL COMMENT '流量端订单号',
   `user_id` bigint(20) unsigned DEFAULT NULL,
-  `source` int(11) DEFAULT NULL COMMENT '来源，1-融泽',
+  `source` int(11) DEFAULT '1' COMMENT '来源，1-融泽',
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   UNIQUE KEY `uk_oid_s` (`order_no`,`source`) USING BTREE

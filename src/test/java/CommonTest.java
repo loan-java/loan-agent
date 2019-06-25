@@ -1,9 +1,13 @@
+import com.alibaba.fastjson.JSON;
 import com.mod.loan.common.enums.UserOriginEnum;
 import com.mod.loan.mapper.UserMapper;
+import com.mod.loan.model.Merchant;
 import com.mod.loan.model.User;
+import com.mod.loan.service.biz.BizMerchantService;
 import org.junit.Test;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 /**
@@ -13,15 +17,13 @@ import javax.annotation.Resource;
 public class CommonTest extends BaseSpringBootJunitTest {
 
     @Resource
-    UserMapper userMapper;
+    BizMerchantService bizMerchantService;
 
     @Test
     public void t() {
-        User u = new User();
-        u.setUserName("t");
-        u.setMobileNo("t");
-        u.setSource(UserOriginEnum.RZ.getCodeInt());
-        userMapper.insertSelective(u);
+        List<Merchant> list =
+                bizMerchantService.queryNormalAll();
+        System.out.println(JSON.toJSONString(list));
     }
 
 }
