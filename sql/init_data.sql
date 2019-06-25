@@ -10,4 +10,4 @@ select concat('insert into tb_user(id, mobile_id_md5) values(', t.id, ',', '"', 
 select concat('insert into tb_order_user(order_no, user_id) values(', '"', t.order_no, '"', ',', t.uid, ');') from tb_user_order t;
 
 -- 插入用户跟商户关联
-select concat('insert into tb_user_merchant(merchant_no, uid) values(', '"10000"', ',', t.uid, ');') from tb_user t;
+select concat('insert into tb_user_merchant(merchant_no, uid) values(', '"10000"', ',', t.id, ');') from tb_user t;
