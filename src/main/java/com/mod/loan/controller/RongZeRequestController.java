@@ -6,6 +6,7 @@ import com.mod.loan.common.enums.ResponseEnum;
 import com.mod.loan.common.enums.UserOriginEnum;
 import com.mod.loan.common.exception.BizException;
 
+import com.mod.loan.model.OrderUser;
 import com.mod.loan.service.MerchantService;
 import com.mod.loan.service.biz.BizOrderUserService;
 import com.mod.loan.service.biz.BizUserService;
@@ -75,8 +76,12 @@ public class RongZeRequestController {
                 merchantService.initUser(orderNo, userName, md5, UserOriginEnum.RZ.getCodeInt());
             }
 
-            Long uid = StringUtils.isNotBlank(orderNo) ?
-                    bizOrderUserService.queryRongZeOU(orderNo).getUserId() : null;
+            Long uid = null;
+            if (StringUtils.isNotBlank(orderNo)) {
+                OrderUser ou = bizOrderUserService.queryRongZeOU(orderNo);
+                if (ou == null) throw new BizException("请从主页重新进入");
+                uid = ou.getUserId();
+            }
 
             if ("fund.userinfo.base".equals(method)) {
                 //用户基本信息
