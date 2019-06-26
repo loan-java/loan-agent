@@ -79,7 +79,7 @@ public class MerchantServiceImpl implements MerchantService {
             //如果已有商户则直接转发
             Merchant merchant = queryByMerchantNo(um.getMerchantNo());
             if (merchant != null) {
-                return doPost(merchant.getHost(), requestParamStr);
+                return doPost(uid, merchant, requestParamStr);
             }
         }
         //如果用户还未分配商户，则按商户权重安排当前用户进哪个商户域名
@@ -89,7 +89,7 @@ public class MerchantServiceImpl implements MerchantService {
             um.setUid(uid);
             um.setMerchantNo(merchant.getMerchantNo());
             bizUserMerchantService.insertSelective(um);
-            return doPost(merchant.getHost(), requestParamStr);
+            return doPost(uid, merchant, requestParamStr);
         }
 
         throw new BizException("未获取到有效商户");
@@ -109,8 +109,9 @@ public class MerchantServiceImpl implements MerchantService {
         return queryByMerchantNo(hitNo);
     }
 
-    private String doPost(String url, String requestParamStr) throws Exception {
-        return HttpClientUtils.sendPost(url, requestParamStr.getBytes());
+    private String doPost(long uid, Merchant merchant, String requestParamStr) throws Exception {
+        log.info("分发请求, 用户id: " + uid + ", 商户号: " + merchant.getMerchantNo() + ", 权重: " + merchant.getWeight() + ", 转向 url: " + merchant.getHost());
+        return HttpClientUtils.sendPost(merchant.getHost(), requestParamStr.getBytes());
     }
 
     private Merchant queryByMerchantNo(String merchantNo) {
