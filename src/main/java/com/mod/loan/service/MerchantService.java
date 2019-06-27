@@ -8,5 +8,5 @@ public interface MerchantService {
 
     void initUser(String orderNo, String userName, String md5, int source);
 
-    String distribute(long uid, String requestParamStr, int source) throws Exception;
+    String distribute(long uid, String requestParamStr, int source, String method) throws Exception;
 }

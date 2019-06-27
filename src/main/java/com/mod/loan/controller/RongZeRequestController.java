@@ -36,7 +36,7 @@ public class RongZeRequestController {
     @Resource
     private BizUserService bizUserService;
 
-    private static final String logPre = "融泽入口请求, ";
+    private static final String logPre = "agent-融泽入口请求, ";
 
     @RequestMapping("/dispatcherRequest")
     public Object dispatcherRequest(@RequestBody JSONObject param) {
@@ -62,7 +62,7 @@ public class RongZeRequestController {
                 String bizDataStr = param.getString("biz_data");
                 String bizData = BizDataUtil.decryptBizData(bizDataStr, param.getString("des_key"));
                 param.put("biz_data", bizData);
-                log.warn(logPre + "method: " + method + ", 解密后的数据：" + param.toJSONString());
+//                log.warn(logPre + "method: " + method + ", 解密后的数据：" + param.toJSONString());
             }
 
             JSONObject bizData = JSONObject.parseObject(param.getString("biz_data"));
@@ -79,7 +79,7 @@ public class RongZeRequestController {
             Long uid = null;
             if (StringUtils.isNotBlank(orderNo)) {
                 OrderUser ou = bizOrderUserService.queryRongZeOU(orderNo);
-                if (ou == null) throw new BizException("请从主页重新进入");
+                if (ou == null) throw new BizException("会话已失效，请从主页重新进入");
                 uid = ou.getUserId();
             }
 
@@ -88,14 +88,17 @@ public class RongZeRequestController {
                 JSONObject orderInfo = bizData.getJSONObject("orderInfo");//订单基本信息
                 String userMobile = orderInfo.getString("user_mobile");
                 orderNo = orderInfo.getString("order_no");
-                if (uid == null)
-                    uid = bizOrderUserService.queryRongZeOU(orderNo).getUserId();
+                if (uid == null) {
+                    OrderUser ou = bizOrderUserService.queryRongZeOU(orderNo);
+                    if (ou == null) throw new BizException("会话已失效，请从主页重新进入");
+                    uid = ou.getUserId();
+                }
                 bizUserService.updateUserMobile(uid, userMobile);
             }
 
             if (uid == null) throw new BizException("根据orderNo未获取到用户id");
 
-            result = merchantService.distribute(uid, oriParamStr, UserOriginEnum.RZ.getCodeInt());
+            result = merchantService.distribute(uid, oriParamStr, UserOriginEnum.RZ.getCodeInt(), method);
 
         } catch (Exception e) {
             logFail(e, "【" + method + "】方法出错：" + param.toJSONString());
