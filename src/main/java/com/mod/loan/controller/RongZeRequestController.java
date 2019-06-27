@@ -67,6 +67,12 @@ public class RongZeRequestController {
 
             JSONObject bizData = JSONObject.parseObject(param.getString("biz_data"));
 
+            //设置随机数
+//            String n="";
+//            if("dev".equals(Constant.ENVIROMENT)){
+//                n=String.valueOf((1+Math.random()*(1000-1+1)));
+//            }
+
             String orderNo = bizData.getString("order_no"); //默认的orderNo获取方式
 
             if ("fund.cert.auth".equals(method)) {
