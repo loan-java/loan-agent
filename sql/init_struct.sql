@@ -7,7 +7,8 @@ CREATE TABLE `tb_user` (
   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `update_time` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uk_md5` (`mobile_id_md5`) USING BTREE
+  UNIQUE KEY `uk_md5` (`mobile_id_md5`) USING BTREE,
+   UNIQUE KEY `mobile` (`mobile_no`)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_bin;
 
 CREATE TABLE `tb_merchant` (
