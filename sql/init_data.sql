@@ -1,6 +1,6 @@
 
-INSERT INTO `tb_merchant`(`merchant_no`, `merchant_name`, `weight`, `host`, `status`) VALUES ('10000', '及时贷', 50, 'http://localhost:10002/rongze/dispatcherRequest', 1);
-INSERT INTO  `tb_merchant`(`merchant_no`, `merchant_name`, `weight`, `host`, `status`) VALUES ('10001', '华时贷', 50, 'http://localhost:10002/rongze/dispatcherRequest', 1);
+INSERT INTO `tb_merchant`(`merchant_no`, `merchant_name`, `weight`, `host`, `status`) VALUES ('10000', 'huashidai', 50, 'http://hsdrzthird.mrcy888.com/rongze/dispatcherRequest', 1);
+INSERT INTO  `tb_merchant`(`merchant_no`, `merchant_name`, `weight`, `host`, `status`) VALUES ('10001', 'xiaohuqianbao', 50, 'http://xhqbrzthird.shengyhwl.com/rongze/dispatcherRequest', 1);
 
 
 -- 插入用户id跟md5值
