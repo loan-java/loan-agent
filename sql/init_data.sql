@@ -11,4 +11,4 @@ select concat('insert into tb_order_user(order_no, user_id,source,create_time) v
 
 
 -- 插入用户跟商户关联
-select concat('insert into tb_user_merchant(merchant_no, uid) values(', '"10000"', ',', t.id, ');') from tb_user t;
+select concat('insert into tb_user_merchant(merchant_no, uid,create_time,update_time) values(', '"10000"', ',', t.id,',"',now(),'","',now(),'"' ');') from tb_user t;
