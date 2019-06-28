@@ -70,7 +70,8 @@
     </insert>
 
     <select id="selectByMd5" resultMap="BaseResultMap" parameterType="java.lang.String">
-        select * from tb_user where mobile_id_md5=#{str,jdbcType=VARCHAR}
+        select * from tb_user where mobile_id_md5=#{strLower,jdbcType=VARCHAR}
+        or mobile_id_md5=#{strUpper,jdbcType=VARCHAR}
     </select>
 
 </mapper>

@@ -17,8 +17,8 @@ public class BizUserService extends BaseServiceImpl<User, Long> {
     @Resource
     private UserMapper userMapper;
 
-    public User queryByMd5(String md5) {
-        return userMapper.selectByMd5(md5);
+    public User queryByMd5(String md5Lower, String md5Upper) {
+        return userMapper.selectByMd5(md5Lower, md5Upper);
     }
 
     public void insertGetId(User user) {

@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Param;
 public interface UserMapper extends MyBaseMapper<User> {
 
 
-    User selectByMd5(@Param("str") String str);
+    User selectByMd5(@Param("strLower") String strLower,@Param("strUpper") String strUpper);
 
     void insertGetId(User user);
 }

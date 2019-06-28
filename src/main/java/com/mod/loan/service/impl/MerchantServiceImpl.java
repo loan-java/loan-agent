@@ -46,7 +46,7 @@ public class MerchantServiceImpl implements MerchantService {
     //初始化用户信息
     @Transactional(rollbackFor = Throwable.class)
     public void initUser(String orderNo, String userName, String md5, int source) {
-        User user = bizUserService.queryByMd5(md5);
+        User user = bizUserService.queryByMd5(md5.toLowerCase(),md5.toUpperCase());
         if (user == null) {
             user = new User();
             user.setUserName(userName);
