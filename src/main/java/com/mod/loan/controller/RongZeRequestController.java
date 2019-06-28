@@ -98,7 +98,7 @@ public class RongZeRequestController {
                     if (ou == null) throw new BizException("会话已失效，请从主页重新进入");
                     uid = ou.getUserId();
                 }
-                log.info("用户ID是:{}", uid);
+                log.info("用户ID是:{}，手机号码是:{}", uid, userMobile);
                 bizUserService.updateUserMobile(uid, userMobile);
             }
 
