@@ -5,7 +5,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.mod.loan.common.enums.ResponseEnum;
 import com.mod.loan.common.enums.UserOriginEnum;
 import com.mod.loan.common.exception.BizException;
-
 import com.mod.loan.model.OrderUser;
 import com.mod.loan.service.MerchantService;
 import com.mod.loan.service.biz.BizOrderUserService;
@@ -99,6 +98,7 @@ public class RongZeRequestController {
                     if (ou == null) throw new BizException("会话已失效，请从主页重新进入");
                     uid = ou.getUserId();
                 }
+                log.info("用户ID是:{}", uid);
                 bizUserService.updateUserMobile(uid, userMobile);
             }
 
