@@ -19,7 +19,7 @@ public class Constant {
     public static String sysDomainHost; //系统域名
 
 
-    @Value("${sys.domain.host}")
+    @Value("${sys.domain.host:}")
     public void setSysDomainHost(String sysDomainHost) {
         Constant.sysDomainHost = sysDomainHost;
     }
@@ -29,22 +29,22 @@ public class Constant {
         Constant.rongZeRequestAppId = rongZeRequestAppId;
     }
 
-    @Value("${rongze.callback.url}")
+    @Value("${rongze.callback.url:}")
     public void setRongZeCallbackUrl(String rongZeCallbackUrl) {
         Constant.rongZeCallbackUrl = rongZeCallbackUrl;
     }
 
-    @Value("${rongze.query.url}")
+    @Value("${rongze.query.url:}")
     public void setRongZeQueryUrl(String rongZeQueryUrl) {
         Constant.rongZeQueryUrl = rongZeQueryUrl;
     }
 
-    @Value("${org.rsa.private.key}")
+    @Value("${org.rsa.private.key:}")
     public void setOrgPrivateKey(String orgPrivateKey) {
         Constant.orgPrivateKey = orgPrivateKey;
     }
 
-    @Value("${rongze.rsa.public.key}")
+    @Value("${rongze.rsa.public.key:}")
     public void setRongZePublicKey(String rongZePublicKey) {
         Constant.rongZePublicKey = rongZePublicKey;
     }
