@@ -75,18 +75,12 @@ public class RongZeRequestController {
 
             String orderNo = bizData.getString("order_no"); //默认的orderNo获取方式
 
+            Long uid = null;
             if ("fund.cert.auth".equals(method)) {
                 //调的第一个接口
                 String md5 = bizData.getString("md5");
                 String userName = bizData.getString("user_name");
-                merchantService.initUser(orderNo, userName, md5, UserOriginEnum.RZ.getCodeInt());
-            }
-
-            Long uid = null;
-            if (StringUtils.isNotBlank(orderNo)) {
-                OrderUser ou = bizOrderUserService.queryRongZeOU(orderNo);
-                if (ou == null) throw new BizException("会话已失效，请从主页重新进入");
-                uid = ou.getUserId();
+                uid = merchantService.initUser(orderNo, userName, "", md5, UserOriginEnum.RZ.getCodeInt());
             }
 
             if ("fund.userinfo.base".equals(method)) {
@@ -97,17 +91,21 @@ public class RongZeRequestController {
                 String userName = orderInfo.getString("user_name");
                 String userId = applyDetail.getString("user_id");
                 orderNo = orderInfo.getString("order_no");
-                if (uid == null) {
-                    OrderUser ou = bizOrderUserService.queryRongZeOU(orderNo);
-                    if (ou == null) {
-                        merchantService.initUser(orderNo, userName, MD5Util.toMD5(userMobile + userId.toUpperCase()).toUpperCase(),
-                                UserOriginEnum.RZ.getCodeInt());
-                    }
-                    ou = bizOrderUserService.queryRongZeOU(orderNo);
+                OrderUser ou = bizOrderUserService.queryRongZeOU(orderNo);
+                if (ou == null) {
+                    uid = merchantService.initUser(orderNo, userName, userMobile, MD5Util.toMD5(userMobile + userId.toUpperCase()).toUpperCase(),
+                            UserOriginEnum.RZ.getCodeInt());
+                } else {
                     uid = ou.getUserId();
                 }
-                log.info("用户ID是:{}，手机号码是:{}", uid, userMobile);
-                bizUserService.updateUserMobile(uid, userMobile);
+            }
+
+            if (uid == null) {
+                if (StringUtils.isBlank(orderNo)) throw new BizException("orderNo未传");
+
+                OrderUser ou = bizOrderUserService.queryRongZeOU(orderNo);
+                if (ou == null) throw new BizException("会话已失效，请从主页重新进入");
+                uid = ou.getUserId();
             }
 
             if (uid == null) throw new BizException("根据orderNo未获取到用户id");
