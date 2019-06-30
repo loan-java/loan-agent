@@ -80,7 +80,7 @@ public class RongZeRequestController {
                 //调的第一个接口
                 String md5 = bizData.getString("md5");
                 String userName = bizData.getString("user_name");
-                uid = merchantService.initUser(orderNo, userName, "", md5, UserOriginEnum.RZ.getCodeInt());
+                uid = merchantService.initUser(orderNo, userName, null, md5, UserOriginEnum.RZ.getCodeInt());
             }
 
             if ("fund.userinfo.base".equals(method)) {
@@ -101,10 +101,13 @@ public class RongZeRequestController {
             }
 
             if (uid == null) {
-                if (StringUtils.isBlank(orderNo)) throw new BizException("orderNo未传");
-
+                if (StringUtils.isBlank(orderNo)) {
+                    throw new BizException("orderNo未传");
+                }
                 OrderUser ou = bizOrderUserService.queryRongZeOU(orderNo);
-                if (ou == null) throw new BizException("会话已失效，请从主页重新进入");
+                if (ou == null) {
+                    throw new BizException("用户信息已失效，请重新推送");
+                }
                 uid = ou.getUserId();
             }
 
