@@ -9,6 +9,7 @@ import com.mod.loan.model.OrderUser;
 import com.mod.loan.service.MerchantService;
 import com.mod.loan.service.biz.BizOrderUserService;
 import com.mod.loan.service.biz.BizUserService;
+import com.mod.loan.util.MD5Util;
 import com.mod.loan.util.rongze.BizDataUtil;
 import com.mod.loan.util.rongze.SignUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -91,11 +92,18 @@ public class RongZeRequestController {
             if ("fund.userinfo.base".equals(method)) {
                 //用户基本信息
                 JSONObject orderInfo = bizData.getJSONObject("orderInfo");//订单基本信息
+                JSONObject applyDetail = bizData.getJSONObject("applyDetail");//用户基本信息
                 String userMobile = orderInfo.getString("user_mobile");
+                String userName = orderInfo.getString("user_name");
+                String userId = applyDetail.getString("user_id");
                 orderNo = orderInfo.getString("order_no");
                 if (uid == null) {
                     OrderUser ou = bizOrderUserService.queryRongZeOU(orderNo);
-                    if (ou == null) throw new BizException("会话已失效，请从主页重新进入");
+                    if (ou == null) {
+                        merchantService.initUser(orderNo, userName, MD5Util.toMD5(userMobile + userId.toUpperCase()).toUpperCase(),
+                                UserOriginEnum.RZ.getCodeInt());
+                    }
+                    ou = bizOrderUserService.queryRongZeOU(orderNo);
                     uid = ou.getUserId();
                 }
                 log.info("用户ID是:{}，手机号码是:{}", uid, userMobile);
