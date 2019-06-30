@@ -52,7 +52,8 @@ public class MerchantServiceImpl implements MerchantService {
             user.setUserName(userName);
             user.setMobileIdMd5(md5);
             user.setSource(source);
-            user.setMobileNo(mobileNo);
+            if (StringUtils.isNotBlank(mobileNo))
+                user.setMobileNo(mobileNo);
             bizUserService.insertGetId(user);
         }
         OrderUser ou = bizOrderUserService.queryByOrderNoAndSource(orderNo, source);
