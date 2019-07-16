@@ -1,8 +1,5 @@
 import com.alibaba.fastjson.JSON;
-import com.mod.loan.common.enums.UserOriginEnum;
-import com.mod.loan.mapper.UserMapper;
 import com.mod.loan.model.Merchant;
-import com.mod.loan.model.User;
 import com.mod.loan.service.biz.BizMerchantService;
 import org.junit.Test;
 
