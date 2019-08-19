@@ -18,7 +18,7 @@ public class BizOrderUserService extends BaseServiceImpl<OrderUser, Long> {
     private OrderUserMapper orderUserMapper;
 
     public OrderUser queryRongZeOU(String orderNo) {
-        return queryByOrderNoAndSource(orderNo, UserOriginEnum.RZ.getCodeInt());
+        return queryByOrderNoAndSource(orderNo, UserOriginEnum.BB.getCodeInt());
     }
 
     public OrderUser queryByOrderNoAndSource(String orderNo, int source) {

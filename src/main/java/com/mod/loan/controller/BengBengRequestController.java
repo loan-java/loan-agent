@@ -26,8 +26,8 @@ import javax.annotation.Resource;
  */
 @Slf4j
 @RestController
-@RequestMapping("/rongze")
-public class RongZeRequestController {
+@RequestMapping("/bengbeng")
+public class BengBengRequestController {
 
     @Resource
     private MerchantService merchantService;
@@ -36,7 +36,7 @@ public class RongZeRequestController {
     @Resource
     private BizUserService bizUserService;
 
-    private static final String logPre = "agent-融泽入口请求, ";
+    private static final String logPre = "agent-蹦蹦入口请求, ";
 
     @RequestMapping("/dispatcherRequest")
     public Object dispatcherRequest(@RequestBody JSONObject param) {
@@ -80,7 +80,7 @@ public class RongZeRequestController {
                 //调的第一个接口
                 String md5 = bizData.getString("md5");
                 String userName = bizData.getString("user_name");
-                uid = merchantService.initUser(orderNo, userName, null, md5, UserOriginEnum.RZ.getCodeInt());
+                uid = merchantService.initUser(orderNo, userName, null, md5, UserOriginEnum.BB.getCodeInt());
             }
 
             if ("fund.userinfo.base".equals(method)) {
@@ -94,7 +94,7 @@ public class RongZeRequestController {
                 OrderUser ou = bizOrderUserService.queryRongZeOU(orderNo);
                 if (ou == null) {
                     uid = merchantService.initUser(orderNo, userName, userMobile, MD5Util.toMD5(userMobile + userId.toUpperCase()).toUpperCase(),
-                            UserOriginEnum.RZ.getCodeInt());
+                            UserOriginEnum.BB.getCodeInt());
                 } else {
                     uid = ou.getUserId();
                 }
@@ -113,7 +113,7 @@ public class RongZeRequestController {
 
             if (uid == null) throw new BizException("根据orderNo未获取到用户id");
 
-            result = merchantService.distribute(uid, oriParamStr, UserOriginEnum.RZ.getCodeInt(), method);
+            result = merchantService.distribute(uid, oriParamStr, UserOriginEnum.BB.getCodeInt(), method);
 
         } catch (Exception e) {
             logFail(e, "【" + method + "】方法出错：" + param.toJSONString());
